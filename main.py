@@ -48,18 +48,17 @@ def get_input():
 def get_openweather(argument):
   baseUrl = "http://api.openweathermap.org/data/2.5/weather"
   response = requests.get(baseUrl, params=argument.keyword_dic)
-  if response.status_code != '404' or '401':
+  if response.status_code != 404 and  response.status_code != 401:
     weather_data = response.json()
     print_weather(weather_data)
     return True
     #print('weather_description'+ weather_data["weather"]["description"])
-  elif response.status_code == '401':
+  elif response.status_code == 401:
     print('Unauthorized Error')
     return False
   else:
     print('Cannot find this city')
     return False
-
 
 def available(city):
   argument = Argument()
